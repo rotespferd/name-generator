@@ -10,7 +10,7 @@ import (
 // define CLI flags
 //TODO: add default path for default file
 var filepath = flag.String("filepath", "./names.json", "The path to the file with the names")
-var removeName = flag.Bool("remove", true, "if true the name will be removed from list")
+var shouldNameBeRemoved = flag.Bool("remove", true, "if true the name will be removed from list")
 
 // Names is an array of names
 type Names struct {
@@ -28,8 +28,14 @@ func main() {
 	flag.Parse()
 
 	names := loadFile(*filepath)
-
 	log.Println("Loaded names with description ", names.Description)
+
+	nextName := nextName(names)
+
+	log.Println("==================================================")
+	log.Println("The next name is:")
+	log.Println(nextName)
+	log.Println("==================================================")
 }
 
 func loadFile(filepath string) Names {
@@ -50,4 +56,18 @@ func loadFile(filepath string) Names {
 	}
 
 	return names
+}
+
+func nextName(names Names) string {
+	for _, name := range names.Names {
+		if !name.Removed {
+			if *shouldNameBeRemoved {
+				name.Removed = true
+			} else {
+				log.Println("The name will not be removed!")
+			}
+			return name.Name
+		}
+	}
+	return "test"
 }
