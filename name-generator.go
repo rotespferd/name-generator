@@ -32,6 +32,10 @@ func main() {
 
 	nextName, names := nextName(names)
 
+	json, _ := json.Marshal(names)
+
+	ioutil.WriteFile(*filepath, json, 0777)
+
 	log.Println("==================================================")
 	log.Println("The next name is:")
 	log.Println(nextName)
