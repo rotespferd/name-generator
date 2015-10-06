@@ -40,12 +40,9 @@ func main() {
 	log.Println("The next name is:")
 	log.Println(nextName)
 	log.Println("==================================================")
-
-	log.Println(names)
 }
 
 func loadFile(filepath string) Names {
-	log.Println("Load files from ", filepath)
 
 	file, err := ioutil.ReadFile(filepath)
 
