@@ -30,12 +30,14 @@ func main() {
 	names := loadFile(*filepath)
 	log.Println("Loaded names with description ", names.Description)
 
-	nextName := nextName(names)
+	nextName, names := nextName(names)
 
 	log.Println("==================================================")
 	log.Println("The next name is:")
 	log.Println(nextName)
 	log.Println("==================================================")
+
+	log.Println(names)
 }
 
 func loadFile(filepath string) Names {
@@ -58,16 +60,16 @@ func loadFile(filepath string) Names {
 	return names
 }
 
-func nextName(names Names) string {
-	for _, name := range names.Names {
+func nextName(names Names) (string, Names) {
+	for index, name := range names.Names {
 		if !name.Removed {
 			if *shouldNameBeRemoved {
-				name.Removed = true
+				names.Names[index].Removed = true
 			} else {
 				log.Println("The name will not be removed!")
 			}
-			return name.Name
+			return name.Name, names
 		}
 	}
-	return "test"
+	return "", names
 }
