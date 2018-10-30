@@ -12,8 +12,8 @@ import (
 // define CLI flags
 //TODO: add default path for default file
 var filepath = flag.String("filepath", "./names.json", "The path to the file with the names")
-var shouldNameBeRemoved = flag.Bool("remove", true, "if true the name will be removed from list")
-var showVersion = flag.Bool("version", false, "show the version of the tool")
+var shouldNameBeRemoved = flag.Bool("remove", true, "If true the name will be removed from list")
+var showVersion = flag.Bool("version", false, "Show the version of the tool")
 
 // Names is an array of names
 type Names struct {
@@ -62,7 +62,7 @@ func loadFile(filepath string) Names {
 	file, err := ioutil.ReadFile(filepath)
 
 	if err != nil {
-		log.Println("file could not be opened")
+		log.Println("File could not be opened!")
 		log.Fatal(err)
 	}
 
